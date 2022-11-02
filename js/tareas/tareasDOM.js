@@ -72,8 +72,8 @@ function addTareaDOM({ id, titulo, descripcion, prioridad, vencimiento, grupo })
 
 function actualizarTareasDOM() {
     let criterio = Number.parseInt(localStorage.getItem("TareaFiltro"));
-    console.log("criterio:", criterio)
-    
+    console.log("criterio:", criterio);
+
     let DOMListado = document.getElementsByClassName("task-list")[0];
     DOMListado.innerHTML = "";
     let listaTareas;
@@ -97,6 +97,10 @@ function actualizarTareasDOM() {
         for (const tarea of listaTareas) {
             addTareaDOM(tarea);
         }
-    };
+    }
+    if(listaTareas.length == 0) {
+        let DOM_Filtros = document.getElementsByClassName("task-list-filters")[0];
+        DOM_Filtros.classList.add("d-none")
+    }
 
 }
