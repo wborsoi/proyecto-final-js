@@ -72,7 +72,6 @@ function addTareaDOM({ id, titulo, descripcion, prioridad, vencimiento, grupo })
 
 function actualizarTareasDOM() {
     let criterio = Number.parseInt(localStorage.getItem("TareaFiltro"));
-    console.log("criterio:", criterio);
 
     let DOMListado = document.getElementsByClassName("task-list")[0];
     DOMListado.innerHTML = "";

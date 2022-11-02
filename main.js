@@ -1,4 +1,13 @@
 function inicializarEventos() {
+    if (!localStorage.getItem("NotasList"))
+        localStorage.setItem("NotasList", JSON.stringify([]));
+
+    if (!localStorage.getItem("TareasList"))
+        localStorage.setItem("TareasList", JSON.stringify([]));
+
+    if (!localStorage.getItem("TareaFiltro"))
+        localStorage.setItem("TareaFiltro", 4);
+
     let formTareas = document.getElementById("FORM_TAREAS");
     formTareas.addEventListener("submit", procesarFormTarea);
 
