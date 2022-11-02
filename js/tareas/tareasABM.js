@@ -60,10 +60,20 @@ function procesarFormTarea(e) {
         vencimiento: new Date(formulario.inputTaskVencimiento.value),
         grupo: formulario.inputTaskGrupo.value
     }
-    console.log(formulario.inputTaskVencimiento.value == "")
-    if (formulario.inputTaskVencimiento.value == "") {
-        tarea.vencimiento = null;
+
+    if (tarea.titulo == "") {
+        //swal("Por favor completar el titulo de la tarea para poder continuar");
+        swal({
+            text: "Por favor completar el titulo de la tarea para poder continuar",
+            icon: "error"
+        });
     }
-    agregarTarea(tarea);
+    else {
+        if (formulario.inputTaskVencimiento.value == "") {
+            tarea.vencimiento = null;
+        }
+        agregarTarea(tarea);
+    }
+
 }
 

@@ -37,6 +37,13 @@ header {
     background-size: cover;
 }
 
+header h1 {
+    background-color: #ffe68ae0;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 12px 13px 20px 0px rgb(0 0 0 / 49%);
+}
+
 .notes-list-container {
     display: flex;
     align-items: flex-start;
@@ -223,6 +230,26 @@ header {
     height: 100%;
     width: 100%;
     resize: none;
+}
+
+.task-priority-indicator {
+    margin-left: 5px;
+}
+
+.task-priority-0 {
+    color: #198754;
+}
+
+.task-priority-0 svg {
+    transform: rotate(180deg);
+}
+
+.task-priority-1 {
+    display: none;
+}
+
+.task-priority-2 {
+    color: #F05454;
 }
 
 .btn-submit {
