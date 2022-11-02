@@ -252,6 +252,10 @@ header h1 {
     color: #F05454;
 }
 
+.task-list-filters {
+    margin: 1em 2em;
+}
+
 .btn-submit {
     background-color: #198754;
     border-radius: 100%;

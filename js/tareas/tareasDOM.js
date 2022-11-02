@@ -11,16 +11,16 @@ function addTareaDOM({ id, titulo, descripcion, prioridad, vencimiento, grupo })
     btnCheck.classList.add("task-markAsCompleted-btn");
     btnCheck.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-check-lg" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z" /></svg>`;
     btnCheck.addEventListener("click", () => {
-        swal("¿Esta seguro que desea eliminar la tarea?", {
+        swal("¿Esta seguro que desea marcar la tarea como realizada?", {
             dangerMode: true,
             buttons: {
                 cancelar: {
-                    className:'btn btn-secondary',
+                    className: 'btn btn-secondary',
                     text: "Cancelar",
                     value: "cancelar",
                 },
                 eliminar: {
-                    className:'btn btn-danger',
+                    className: 'btn btn-danger',
                     text: "Eliminar",
                     value: "eliminar",
                 }
@@ -33,7 +33,7 @@ function addTareaDOM({ id, titulo, descripcion, prioridad, vencimiento, grupo })
                     break;
             }
         });
-        
+
     });
 
     div_BtnCheck.append(btnCheck);
@@ -43,9 +43,9 @@ function addTareaDOM({ id, titulo, descripcion, prioridad, vencimiento, grupo })
     let h3_titulo = document.createElement("h3");
     h3_titulo.innerHTML = titulo;
 
-    if(prioridad != 1) {
+    if (prioridad != 1) {
         let span_titulo_prioridad = document.createElement("span");
-        span_titulo_prioridad.classList.add("task-priority-indicator",("task-priority-"+ prioridad));
+        span_titulo_prioridad.classList.add("task-priority-indicator", ("task-priority-" + prioridad));
         span_titulo_prioridad.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/></svg>`;
         h3_titulo.append(span_titulo_prioridad);
     }
@@ -71,12 +71,32 @@ function addTareaDOM({ id, titulo, descripcion, prioridad, vencimiento, grupo })
 }
 
 function actualizarTareasDOM() {
+    let criterio = Number.parseInt(localStorage.getItem("TareaFiltro"));
+    console.log("criterio:", criterio)
+    
     let DOMListado = document.getElementsByClassName("task-list")[0];
     DOMListado.innerHTML = "";
-    let listaTareas = obtenerListadoTareas();
+    let listaTareas;
+
+    switch (criterio) {
+        case 1:
+            listaTareas = obtenerListadoTareasPorPrioridad("MAYOR");
+            break;
+        case 2:
+            listaTareas = obtenerListadoTareasPorPrioridad("MENOR");
+            break;
+        case 3:
+            listaTareas = obtenerListadoTareasPorVencer();
+            break;
+        default:
+            listaTareas = obtenerListadoTareas();
+            break;
+    }
+
     if (listaTareas) {
         for (const tarea of listaTareas) {
             addTareaDOM(tarea);
         }
     };
+
 }

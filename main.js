@@ -16,6 +16,15 @@ function inicializarEventos() {
     inputNotaColor4.onclick = () => { cambiarColorNotaDOM(4) };
     inputNotaColor5.onclick = () => { cambiarColorNotaDOM(5) };
 
+    let inputFiltroTareas = document.getElementById("INPUT_FILTRO_TAREAS");
+    inputFiltroTareas.onchange = (criterio) => {
+        localStorage.setItem("TareaFiltro", criterio.target.value);
+        actualizarTareasDOM();
+    }
+    let filterNumber = localStorage.getItem("TareaFiltro");
+    let DOMElement = document.getElementById(("INPUT_FILTRO_TAREAS-V" + filterNumber));
+    DOMElement.setAttribute("selected", true);
+
     actualizarTareasDOM();
     actualizarNotasDOM();
 }

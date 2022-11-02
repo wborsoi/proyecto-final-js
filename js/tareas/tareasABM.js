@@ -7,15 +7,14 @@ function agregarTarea({ titulo, descripcion, prioridad, vencimiento, grupo }) {
         vencimiento: vencimiento,
         grupo: grupo
     };
-    let listaTareas = obtenerListadoTareas(); // Se obtendran todas las tareas almacenadas previamente
+    let listaTareas = obtenerListadoTareas();
     if (!listaTareas) {
         listaTareas = [];
     }
     listaTareas.push(tarea);
 
     localStorage.setItem("TareasList", JSON.stringify(listaTareas));
-    addTareaDOM(tarea);
-    //guardarTarea(listaTareas) // Por ultimo se guarda la nueva lista de tareas
+    location.reload();
 }
 
 function eliminarTarea(id) {
@@ -30,24 +29,37 @@ function eliminarTarea(id) {
 }
 
 function obtenerListadoTareas() {
-    let tareasList = JSON.parse(localStorage.getItem('TareasList'));    //Para el desafio se deja un placeholder.
-    return tareasList;  // Se obtiene el listado de tareas desde el almacenamiento local
+    let tareasList = JSON.parse(localStorage.getItem('TareasList'));   
+    return tareasList; 
 }
 
 function obtenerListadoTareasPorVencer() {
-    let tareasList = tareasDummy;   //Para el desafio se deja un placeholder.
+    let tareasList =  obtenerListadoTareas();
     tareasList.sort((a, b) => {
-        return new Date(b.vencimiento) - new Date(a.vencimiento);
+        if(!a.vencimiento){
+            return new Date("01/01/9999") - new Date(b.vencimiento);
+        }
+        else if (!b.vencimiento) {
+            return new Date(a.vencimiento) - new Date("01/01/9999");
+        }
+        else {
+            return new Date(a.vencimiento) - new Date(b.vencimiento);
+        }
     });
-    return tareasList;  // Se obtiene el listado de tareas desde el almacenamiento local
+    return tareasList; 
 }
 
-function obtenerListadoTareasPorPrioridad() {
-    let tareasList = tareasDummy;   //Para el desafio se deja un placeholder.
+function obtenerListadoTareasPorPrioridad(orden) {
+    let tareasList = obtenerListadoTareas();
     tareasList.sort((a, b) => {
-        return b.prioridad - a.prioridad;
+        if(orden == "MAYOR"){
+            return b.prioridad - a.prioridad;
+        }
+        else {
+            return a.prioridad - b.prioridad;
+        }
     });
-    return tareasList;  // Se obtiene el listado de tareas desde el almacenamiento local
+    return tareasList; 
 }
 
 function procesarFormTarea(e) {
@@ -62,7 +74,6 @@ function procesarFormTarea(e) {
     }
 
     if (tarea.titulo == "") {
-        //swal("Por favor completar el titulo de la tarea para poder continuar");
         swal({
             text: "Por favor completar el titulo de la tarea para poder continuar",
             icon: "error"
