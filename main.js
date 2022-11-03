@@ -34,6 +34,7 @@ function inicializarEventos() {
     let DOMElement = document.getElementById(("INPUT_FILTRO_TAREAS-V" + filterNumber));
     DOMElement.setAttribute("selected", true);
 
+    getUsuarioLogin();
     actualizarTareasDOM();
     actualizarNotasDOM();
 }
